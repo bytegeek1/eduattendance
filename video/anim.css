@@ -1,0 +1,145 @@
+/* ============================================================================
+   EduAttendance — 80-second explainer, stage styles
+
+   The stage is a fixed 1920x1080 canvas. Preview scales it to the window with
+   a transform; the frame renderer sets scale 1 and a 1920x1080 viewport, so
+   what you preview is exactly what encodes.
+
+   There are deliberately NO CSS transitions or @keyframes in here. Every
+   animated value is written by anim.js inside seek(t), because the renderer
+   has to be able to jump to an arbitrary frame and get the identical picture.
+   ========================================================================= */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy-900: #061735;
+  --navy-800: #0A2352;
+  --navy-700: #0E3179;
+  --brand-700: #1140A6;
+  --brand-600: #1657D6;
+  --brand-500: #2C7BEF;
+  --brand-400: #5CA4FF;
+  --brand-300: #93C3FF;
+  --brand-200: #C4DDFF;
+  --sky-100: #E7F0FE;
+  --sky-50:  #F3F8FF;
+  --plum-700: #6B2447;
+  --ink:   #0C1626;
+  --slate: #4B5B73;
+  --slate-2: #6E7E96;
+  --slate-3: #96A3B8;
+  --line:  #DCE7F8;
+  --line-2:#C3D6F2;
+  --white: #FFFFFF;
+  --ok:   #0E9A4E;  --ok-soft:  #E4F6EC;
+  --warn: #D68908;  --warn-soft:#FDF2DC;
+  --bad:  #D6383D;  --bad-soft: #FCE9EA;
+  --wa:   #25D366;
+
+  --display: "Archivo", system-ui, sans-serif;
+  --body:    "Source Sans 3", system-ui, sans-serif;
+  --mono:    "IBM Plex Mono", monospace;
+}
+
+html, body { width: 100%; height: 100%; background: #05101F; overflow: hidden; }
+
+#stage {
+  position: absolute; top: 0; left: 0;
+  width: 1920px; height: 1080px;
+  transform-origin: top left;
+  background: var(--white);
+  overflow: hidden;
+  font-family: var(--body);
+  color: var(--ink);
+}
+
+/* every scene stacks; anim.js decides which are visible */
+.scene { position: absolute; inset: 0; opacity: 0; will-change: opacity, transform; }
+
+.fill { position: absolute; inset: 0; }
+.c { position: absolute; }             /* generic positioned cell */
+
+/* ---------------------------------------------------------------- caption */
+/* the lower third — one line of kinetic type per scene */
+.cap {
+  position: absolute; left: 132px; bottom: 118px; max-width: 1080px;
+  font-family: var(--display); font-weight: 800; letter-spacing: -.03em;
+  font-size: 76px; line-height: 1.04; color: var(--ink);
+}
+.cap .l { display: block; overflow: hidden; }
+.cap .l span { display: block; will-change: transform, opacity; }
+.cap.on-dark { color: #fff; }
+.cap em { font-style: normal; color: var(--brand-600); }
+.cap.on-dark em { color: var(--brand-300); }
+
+.kicker {
+  position: absolute; left: 136px; bottom: 340px;
+  font-family: var(--mono); font-size: 24px; letter-spacing: .34em;
+  text-transform: uppercase; color: var(--brand-600);
+}
+.kicker.on-dark { color: var(--brand-300); }
+
+/* --------------------------------------------------------------- surfaces */
+.card {
+  position: absolute; background: var(--white); border-radius: 28px;
+  box-shadow: 0 0 0 1px var(--line), 0 40px 90px -40px rgba(10,35,82,.55);
+}
+.dark-ground {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(90% 70% at 78% 10%, rgba(44,123,239,.32), transparent 60%),
+    linear-gradient(165deg, var(--navy-900), #08214C 58%, var(--navy-900));
+}
+.sky-ground {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, var(--sky-50) 0%, #FFFFFF 62%);
+}
+
+/* dot matrix + wave decor, matching the site */
+.dots {
+  position: absolute; background-image: radial-gradient(circle, var(--brand-300) 2px, transparent 2.2px);
+  background-size: 22px 22px; opacity: .45;
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000, transparent 72%);
+          mask-image: radial-gradient(circle at 50% 50%, #000, transparent 72%);
+}
+.dots.light { background-image: radial-gradient(circle, rgba(255,255,255,.4) 2px, transparent 2.2px); }
+
+/* ------------------------------------------------------------- primitives */
+.chip-pill {
+  position: absolute; display: flex; align-items: center; gap: 14px;
+  padding: 20px 34px; border-radius: 100px; background: var(--white);
+  font-family: var(--display); font-weight: 700; font-size: 30px; color: var(--ink);
+  box-shadow: 0 0 0 1px var(--line), 0 20px 44px -22px rgba(10,35,82,.5);
+  white-space: nowrap;
+}
+.chip-pill .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--brand-500); flex: none; }
+.chip-pill small { font-family: var(--mono); font-size: 20px; color: var(--slate-3); letter-spacing: .08em; }
+
+.tag {
+  font-family: var(--mono); font-weight: 600; font-size: 20px; letter-spacing: .1em;
+  padding: 7px 16px; border-radius: 8px; text-transform: uppercase;
+}
+.tag.p { background: var(--ok-soft);  color: var(--ok); }
+.tag.a { background: var(--bad-soft); color: var(--bad); }
+.tag.l { background: var(--warn-soft);color: var(--warn); }
+
+.fig { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* --------------------------------------------------------------- controls */
+/* preview only — the renderer hides these */
+#ui {
+  position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 16px; z-index: 50;
+  background: rgba(6,23,53,.9); backdrop-filter: blur(10px);
+  padding: 12px 18px; border-radius: 100px; box-shadow: 0 0 0 1px rgba(146,195,255,.25);
+  font-family: var(--mono); font-size: 13px; color: var(--brand-200);
+}
+#ui button {
+  background: var(--brand-600); color: #fff; border: 0; cursor: pointer;
+  width: 40px; height: 40px; border-radius: 50%; font-size: 15px;
+  display: grid; place-items: center;
+}
+#ui input[type=range] { width: 420px; accent-color: var(--brand-400); cursor: pointer; }
+#ui .t { min-width: 96px; text-align: center; }
+body.rendering #ui { display: none; }

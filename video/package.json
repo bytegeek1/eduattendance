@@ -1,0 +1,14 @@
+{
+  "name": "eduattendance-explainer",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Frame renderer for the EduAttendance 80-second explainer",
+  "scripts": {
+    "frames": "node render.js",
+    "encode": "node encode.js"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.3.0",
+    "playwright-core": "^1.62.1"
+  }
+}

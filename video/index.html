@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>EduAttendance — 80s explainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="anim.css">
+</head>
+<body>
+
+<div id="stage">
+
+  <!-- ══════════════════════════════════════════ 1 · MORNING · 00:00–00:08 -->
+  <section class="scene" id="s1">
+    <div class="sky-ground"></div>
+    <div class="dots" style="left:1500px;top:60px;width:360px;height:360px"></div>
+
+    <svg class="fill" viewBox="0 0 1920 1080">
+      <!-- sun -->
+      <circle id="s1sun" cx="1560" cy="210" r="86" fill="#FFD98A"/>
+      <circle cx="1560" cy="210" r="130" fill="#FFD98A" opacity=".22"/>
+
+      <!-- clouds -->
+      <g id="s1cloud1" fill="#FFFFFF" opacity=".9">
+        <rect x="240" y="180" width="300" height="74" rx="37"/>
+        <circle cx="330" cy="180" r="52"/><circle cx="430" cy="172" r="66"/>
+      </g>
+      <g id="s1cloud2" fill="#FFFFFF" opacity=".72">
+        <rect x="900" y="290" width="230" height="58" rx="29"/>
+        <circle cx="975" cy="292" r="42"/><circle cx="1055" cy="286" r="52"/>
+      </g>
+
+      <!-- school building -->
+      <g id="s1school">
+        <rect x="1150" y="470" width="600" height="352" rx="10" fill="var(--brand-600)"/>
+        <path d="M1120 470 L1450 330 L1780 470 Z" fill="var(--navy-800)"/>
+        <rect x="1424" y="196" width="10" height="140" fill="var(--slate-3)"/>
+        <path d="M1434 200 L1530 228 L1434 256 Z" fill="var(--warn)"/>
+        <rect x="1400" y="640" width="100" height="182" rx="6" fill="var(--navy-800)"/>
+        <g fill="#FFFFFF" opacity=".85">
+          <rect x="1210" y="540" width="86" height="76" rx="8"/>
+          <rect x="1338" y="540" width="86" height="76" rx="8"/>
+          <rect x="1476" y="540" width="86" height="76" rx="8"/>
+          <rect x="1604" y="540" width="86" height="76" rx="8"/>
+          <rect x="1210" y="676" width="86" height="76" rx="8"/>
+          <rect x="1604" y="676" width="86" height="76" rx="8"/>
+        </g>
+        <rect x="1118" y="430" width="664" height="44" rx="8" fill="var(--brand-500)"/>
+      </g>
+
+      <!-- The gate that used to sit here spanned x=1010-1906 with a crossbar at
+           y=500, which cut straight across the front of the building and put a
+           stray post at the frame edge. The building reads better on its own. -->
+
+      <!-- ground -->
+      <rect x="0" y="820" width="1920" height="260" fill="var(--sky-100)"/>
+      <rect x="0" y="820" width="1920" height="5" fill="var(--line-2)"/>
+
+      <!-- student -->
+      <g id="s1kid">
+        <!-- back leg / front leg pivot at hip -->
+        <g id="s1legB"><rect x="-15" y="0" width="30" height="112" rx="15" fill="var(--navy-800)"/></g>
+        <g id="s1legF"><rect x="-15" y="0" width="30" height="112" rx="15" fill="var(--navy-700)"/></g>
+        <rect x="-46" y="-128" width="92" height="150" rx="34" fill="var(--brand-600)"/>
+        <rect x="-78" y="-116" width="46" height="104" rx="22" fill="var(--warn)"/>
+        <g id="s1arm"><rect x="-13" y="0" width="26" height="96" rx="13" fill="var(--brand-500)"/></g>
+        <circle cx="0" cy="-170" r="48" fill="#F0C89A"/>
+        <path d="M-50 -186a50 50 0 0 1 100 0z" fill="var(--navy-800)"/>
+      </g>
+    </svg>
+
+    <!-- Scene 1 is a clean establishing shot: he simply arrives. The question
+         lands on the cut inside, in scene 2, so the picture reads first. -->
+    <div class="kicker" id="s1kick" style="bottom:auto;top:120px">Every school morning</div>
+  </section>
+
+  <!-- ═════════════════════════════════════════ 2 · CHECK-IN · 00:06–00:16 -->
+  <section class="scene" id="s2">
+    <svg class="fill" viewBox="0 0 1920 1080">
+      <!-- A CORRIDOR, not a street. Ceiling, wall, skirting and a tiled floor
+           give the interior read that a sky gradient was destroying. -->
+      <rect x="0" y="0" width="1920" height="1080" fill="#EDF1F7"/>
+      <rect x="0" y="0" width="1920" height="86" fill="#D5DEEA"/>
+      <rect x="0" y="86" width="1920" height="7" fill="#C2CEDE"/>
+      <rect x="742" y="0" width="180" height="86" fill="#FBFCFE"/>
+      <rect x="1560" y="0" width="180" height="86" fill="#FBFCFE"/>
+      <rect x="0" y="643" width="1920" height="5" fill="#D8E0EC"/>
+      <rect x="0" y="846" width="1920" height="34" fill="#C6D1E1"/>
+      <rect x="0" y="880" width="1920" height="200" fill="#DDE4EF"/>
+      <g stroke="#CAD5E4" stroke-width="3" opacity=".9">
+        <path d="M0 946h1920M0 1014h1920"/>
+        <path d="M300 880 L210 1080"/><path d="M700 880 L660 1080"/>
+        <path d="M1120 880 L1160 1080"/><path d="M1540 880 L1660 1080"/>
+      </g>
+
+      <!-- a classroom door further down the corridor -->
+      <g>
+        <rect x="1648" y="214" width="238" height="632" rx="8" fill="#C6D1E1"/>
+        <rect x="1666" y="232" width="202" height="614" rx="6" fill="#F5F8FC"/>
+        <rect x="1690" y="262" width="154" height="150" rx="6" fill="#CFDCEE"/>
+        <circle cx="1846" cy="556" r="11" fill="var(--slate-3)"/>
+      </g>
+
+      <!-- corridor clock — reinforces the 08:12 on the record card -->
+      <g id="s2clock">
+        <circle cx="1062" cy="250" r="62" fill="#fff" stroke="var(--line-2)" stroke-width="6"/>
+        <circle cx="1062" cy="250" r="6" fill="var(--navy-800)"/>
+        <path d="M1062 250 L1062 210" stroke="var(--navy-800)" stroke-width="7" stroke-linecap="round"/>
+        <path d="M1062 250 L1094 268" stroke="var(--brand-600)" stroke-width="6" stroke-linecap="round"/>
+      </g>
+
+      <!-- wall bracket under the reader -->
+      <rect x="1396" y="610" width="50" height="34" rx="8" fill="var(--slate-3)"/>
+
+      <!-- the student, arriving and reaching for the pad -->
+      <g id="s2kid">
+        <g id="s2legB"><rect x="-20" y="0" width="40" height="152" rx="20" fill="var(--navy-800)"/></g>
+        <g id="s2legF"><rect x="-20" y="0" width="40" height="152" rx="20" fill="var(--navy-700)"/></g>
+        <rect x="-62" y="-172" width="124" height="200" rx="46" fill="var(--brand-600)"/>
+        <rect x="-118" y="-158" width="64" height="142" rx="30" fill="var(--warn)"/>
+        <circle cx="8" cy="-230" r="64" fill="#F0C89A"/>
+        <path d="M-56 -250a64 64 0 0 1 128 0z" fill="var(--navy-800)"/>
+        <g id="s2arm">
+          <rect x="-18" y="-10" width="36" height="160" rx="18" fill="var(--brand-500)"/>
+          <circle cx="0" cy="160" r="27" fill="#F0C89A"/>
+        </g>
+      </g>
+
+      <!-- the reader pad -->
+      <g id="s2pad">
+        <rect x="1330" y="424" width="182" height="186" rx="22" fill="var(--navy-800)"/>
+        <rect x="1348" y="442" width="146" height="126" rx="14" fill="#0E2246"/>
+        <g id="s2fp" transform="translate(1379,452)" fill="none" stroke="var(--brand-400)"
+           stroke-width="4.6" stroke-linecap="round">
+          <path d="M6 46a35 35 0 0 1 70 0"/><path d="M15 55a26 26 0 0 1 52 0v7"/>
+          <path d="M25 59a16 16 0 0 1 32 0v13"/><path d="M35 63a6 6 0 0 1 12 0v18"/>
+        </g>
+        <rect id="s2scan" x="1348" y="442" width="146" height="5" rx="3" fill="var(--brand-300)" opacity="0"/>
+        <circle id="s2led" cx="1421" cy="588" r="10" fill="var(--warn)"/>
+        <g id="s2ok" opacity="0">
+          <circle cx="1421" cy="505" r="56" fill="var(--ok)" opacity=".18"/>
+          <circle cx="1421" cy="505" r="56" fill="none" stroke="var(--ok)" stroke-width="5"/>
+          <path id="s2tick" d="M1397 505 l16 17 l31 -37" fill="none" stroke="#fff"
+                stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </g>
+    </svg>
+
+    <!-- the record that lands -->
+    <div class="card" id="s2rec" style="left:150px;top:262px;width:800px;height:212px;display:flex;align-items:center;gap:34px;padding:0 44px">
+      <div style="width:96px;height:96px;border-radius:50%;background:var(--sky-100);display:grid;place-items:center;
+                  font-family:var(--display);font-weight:700;font-size:34px;color:var(--brand-700);flex:none">AK</div>
+      <div style="flex:1">
+        <div style="font-family:var(--display);font-weight:700;font-size:40px;color:var(--ink)">Ayesha Khan</div>
+        <div class="fig" style="font-size:24px;color:var(--slate-3);margin-top:6px">B-1042 · Class 7-B</div>
+      </div>
+      <div style="text-align:right">
+        <div class="fig" style="font-size:44px;color:var(--ink);letter-spacing:-.03em">08:12</div>
+        <div class="tag p" style="display:inline-block;margin-top:10px">Present</div>
+      </div>
+    </div>
+
+    <div id="s2state" style="position:absolute;left:1260px;top:672px;width:326px;text-align:center;
+         font-family:var(--display);font-weight:700;font-size:36px;color:var(--brand-600)">Place thumb</div>
+
+    <div class="kicker" id="s2kick" style="bottom:470px">Inside · the reader</div>
+
+    <!-- Two captions in sequence: the question, then the answer. Both sit on
+         the wall above the skirting, and stop short of the student. -->
+    <div class="cap" id="s2capA" style="bottom:250px;max-width:900px">
+      <span class="l"><span>Who arrived?</span></span>
+      <span class="l"><span>Who <em>didn't</em>?</span></span>
+    </div>
+    <div class="cap" id="s2capB" style="bottom:250px;max-width:900px">
+      <span class="l"><span>One touch answers it.</span></span>
+      <span class="l"><span><em>Marked to the second.</em></span></span>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════ 3 · PARENT ALERT · 00:17–00:26 -->
+  <section class="scene" id="s3">
+    <div class="dark-ground"></div>
+    <div class="dots light" style="left:1480px;top:80px;width:380px;height:380px"></div>
+
+    <!-- phone -->
+    <div id="s3phone" style="position:absolute;left:1180px;top:118px;width:460px;height:900px;
+         border-radius:62px;padding:16px;background:linear-gradient(160deg,#16223A,#0A1428);
+         box-shadow:0 0 0 1px rgba(255,255,255,.12),0 60px 120px -40px rgba(0,0,0,.8)">
+      <div style="position:absolute;left:50%;top:34px;transform:translateX(-50%);width:150px;height:34px;border-radius:100px;background:#0A1428;z-index:3"></div>
+      <div style="width:100%;height:100%;border-radius:48px;background:#0B141A;overflow:hidden;position:relative">
+        <div style="height:150px;background:#075E54;display:flex;align-items:flex-end;padding:0 30px 22px;gap:16px">
+          <div style="width:52px;height:52px;border-radius:50%;background:#25D366;display:grid;place-items:center">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z"/></svg>
+          </div>
+          <div>
+            <div style="color:#fff;font-family:var(--display);font-weight:700;font-size:26px">Ayesha's School</div>
+            <div style="color:#8FB7B0;font-size:19px">online</div>
+          </div>
+        </div>
+        <div style="padding:28px 26px;display:flex;flex-direction:column;gap:20px">
+          <div id="s3b1" style="align-self:flex-start;max-width:340px;background:#1F2C33;border-radius:20px 20px 20px 6px;padding:20px 22px">
+            <div style="color:#E9EDEF;font-size:24px;line-height:1.42">Ayesha Khan checked in at <b style="color:#fff">08:12</b> this morning.</div>
+            <div class="fig" style="color:#8696A0;font-size:17px;text-align:right;margin-top:8px">08:12 ✓✓</div>
+          </div>
+          <div id="s3b2" style="align-self:flex-start;max-width:340px;background:#1F2C33;border-radius:20px 20px 20px 6px;padding:20px 22px">
+            <div style="color:#E9EDEF;font-size:24px;line-height:1.42">Have a good day at school.</div>
+            <div class="fig" style="color:#8696A0;font-size:17px;text-align:right;margin-top:8px">08:12 ✓✓</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SMS alternative, sitting behind -->
+    <div class="card" id="s3sms" style="left:600px;top:300px;width:470px;height:184px;padding:28px 32px;background:#12203D;box-shadow:0 0 0 1px rgba(146,195,255,.28)">
+      <div style="font-family:var(--mono);font-size:19px;letter-spacing:.16em;color:var(--brand-300)">OR BY SMS</div>
+      <div style="color:#DCE7F8;font-size:23px;margin-top:12px;line-height:1.4">Ayesha checked in 08:12</div>
+    </div>
+
+    <div class="kicker on-dark" id="s3kick">Step two · the parent knows</div>
+    <div class="cap on-dark" id="s3cap">
+      <span class="l"><span>Her mother knew</span></span>
+      <span class="l"><span><em>before she sat down.</em></span></span>
+    </div>
+  </section>
+
+  <!-- ═════════════════════════════════════ 4 · THREE MODES · 00:26–00:36 -->
+  <section class="scene" id="s4">
+    <div class="sky-ground"></div>
+
+    <div class="card" id="s4tab" style="left:990px;top:180px;width:800px;height:600px;padding:40px 44px;border-radius:22px;box-shadow:0 0 0 20px #16223A,0 0 0 24px #0A1428,0 48px 100px -44px rgba(10,35,82,.6)">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:22px;border-bottom:2px solid var(--line)">
+        <div style="font-family:var(--display);font-weight:700;font-size:32px">Class 7-B</div>
+        <div class="fig" style="font-size:22px;color:var(--slate-3)"><span id="s4n">0</span> / 4</div>
+      </div>
+      <div id="s4rows"></div>
+    </div>
+
+    <div class="chip-pill" id="s4m1" style="left:150px;top:300px"><span class="dot"></span>Once a day <small>DAILY</small></div>
+    <div class="chip-pill" id="s4m2" style="left:150px;top:412px"><span class="dot" style="background:var(--plum-700)"></span>Every period <small>PERIOD</small></div>
+    <div class="chip-pill" id="s4m3" style="left:150px;top:524px"><span class="dot" style="background:var(--ok)"></span>Gate check in–out <small>CHECKINOUT</small></div>
+
+    <div class="kicker" id="s4kick">Three ways to take it</div>
+    <div class="cap" id="s4cap" style="bottom:110px;font-size:64px">
+      <span class="l"><span>No device? A teacher</span></span>
+      <span class="l"><span>marks it <em>on any screen.</em></span></span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ 5 · THE ABSENCE · 00:36–00:45 -->
+  <section class="scene" id="s5">
+    <div class="sky-ground"></div>
+    <svg class="fill" viewBox="0 0 1920 1080" id="s5arc">
+      <path id="s5path" d="M600 452 C 790 236, 1130 226, 1332 402" fill="none"
+            stroke="var(--bad)" stroke-width="6" stroke-dasharray="14 16" stroke-linecap="round" opacity="0"/>
+    </svg>
+
+    <div id="s5desks"></div>
+
+    <div class="tag a" id="s5tag" style="position:absolute;left:516px;top:448px;font-size:26px;padding:12px 22px">Absent</div>
+
+    <div class="card" id="s5phone" style="left:1300px;top:330px;width:440px;height:200px;padding:30px 34px;display:flex;gap:24px;align-items:center">
+      <div style="width:76px;height:76px;border-radius:22px;background:linear-gradient(140deg,#25D366,#128C42);display:grid;place-items:center;flex:none">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z"/></svg>
+      </div>
+      <div>
+        <div style="font-family:var(--display);font-weight:700;font-size:30px">Sent to guardian</div>
+        <div style="font-size:23px;color:var(--slate-2);margin-top:6px;line-height:1.35">Hamza Raza was marked absent today.</div>
+      </div>
+    </div>
+
+    <div id="s5stamp" style="position:absolute;left:1372px;top:576px;font-family:var(--mono);font-weight:600;
+         font-size:26px;letter-spacing:.18em;color:var(--ok);border:4px solid var(--ok);
+         border-radius:14px;padding:14px 26px;text-transform:uppercase">Sent once</div>
+
+    <div class="kicker" id="s5kick" style="bottom:306px">Nobody has to notice</div>
+    <div class="cap" id="s5cap" style="bottom:104px;font-size:64px">
+      <span class="l"><span>One child missing.</span></span>
+      <span class="l"><span><em>One message. Never two.</em></span></span>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════ 6 · THE OFFICE · 00:45–00:56 -->
+  <section class="scene" id="s6">
+    <div class="dark-ground"></div>
+    <div class="dots light" style="left:1560px;top:700px;width:360px;height:360px"></div>
+
+    <div id="s6k1" class="kpi"></div>
+    <div id="s6tiles"></div>
+
+    <!-- donut -->
+    <div id="s6donut" style="position:absolute;left:190px;top:430px;width:360px;height:360px">
+      <svg width="360" height="360" viewBox="0 0 100 100" style="transform:rotate(-90deg)">
+        <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(146,195,255,.18)" stroke-width="11"/>
+        <circle id="s6d1" cx="50" cy="50" r="40" fill="none" stroke="#12A65A" stroke-width="11" stroke-linecap="round"/>
+        <circle id="s6d2" cx="50" cy="50" r="40" fill="none" stroke="#D6383D" stroke-width="11" stroke-linecap="round"/>
+        <circle id="s6d3" cx="50" cy="50" r="40" fill="none" stroke="#E5A020" stroke-width="11" stroke-linecap="round"/>
+      </svg>
+      <div style="position:absolute;inset:0;display:grid;place-content:center;text-align:center">
+        <div class="fig" id="s6rate" style="font-size:64px;color:#fff;letter-spacing:-.04em">0%</div>
+        <div style="font-family:var(--mono);font-size:19px;letter-spacing:.2em;color:var(--brand-300)">RATE</div>
+      </div>
+    </div>
+
+    <!-- bars -->
+    <div id="s6bars" style="position:absolute;left:700px;top:470px;width:1040px;height:300px;display:flex;align-items:flex-end;gap:34px"></div>
+
+    <div class="kicker on-dark" id="s6kick" style="bottom:auto;top:96px">The whole school, live</div>
+    <div class="cap on-dark" id="s6cap" style="bottom:92px;font-size:62px">
+      <span class="l"><span>Present, absent, late —</span></span>
+      <span class="l"><span><em>all day, every campus.</em></span></span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ 7 · REPORTS · 00:56–01:06 -->
+  <section class="scene" id="s7">
+    <div class="sky-ground"></div>
+    <div class="dots" style="left:1540px;top:120px;width:340px;height:340px"></div>
+    <div id="s7sheets"></div>
+
+    <div class="kicker" id="s7kick" style="bottom:auto;top:92px">Month end</div>
+    <div class="cap" id="s7cap" style="bottom:104px;font-size:64px">
+      <span class="l"><span>Seconds,</span></span>
+      <span class="l"><span><em>not evenings.</em></span></span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ 8 · BILINGUAL · 35–39 -->
+  <!-- The old version put an English staff table beside an Urdu one, which
+       read as two unrelated screens. This shows ONE message twice, in cards
+       that are identical except for the language. -->
+  <section class="scene" id="s8">
+    <div class="sky-ground"></div>
+
+    <div class="card" id="s8en" style="left:140px;top:322px;width:620px;height:308px;padding:40px 44px">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+        <span style="width:46px;height:46px;border-radius:13px;background:linear-gradient(140deg,#25D366,#128C42);display:grid;place-items:center">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z"/></svg>
+        </span>
+        <span style="font-family:var(--mono);font-size:21px;letter-spacing:.16em;color:var(--slate-3)">ENGLISH</span>
+      </div>
+      <div style="font-size:34px;line-height:1.45;color:var(--ink)">
+        <b>Ayesha Khan</b> checked in at <b>08:12</b> this morning.</div>
+    </div>
+
+    <div id="s8sw" style="position:absolute;left:806px;top:418px;width:308px;height:116px;border-radius:100px;
+         background:#fff;box-shadow:0 0 0 1px var(--line-2),0 22px 46px -24px rgba(10,35,82,.5);
+         display:flex;align-items:center;justify-content:center;gap:22px">
+      <span style="font-family:var(--display);font-weight:800;font-size:30px;color:var(--slate-3)">EN</span>
+      <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--brand-600)"
+           stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 8h13M14 5l3 3-3 3"/><path d="M20 16H7M10 13l-3 3 3 3"/></svg>
+      <span style="font-family:'Noto Nastaliq Urdu',var(--body);font-weight:700;font-size:30px;color:var(--brand-600)">اردو</span>
+    </div>
+
+    <div class="card" id="s8ur" style="left:1160px;top:322px;width:620px;height:308px;padding:40px 44px;direction:rtl;text-align:right">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+        <span style="width:46px;height:46px;border-radius:13px;background:linear-gradient(140deg,#25D366,#128C42);display:grid;place-items:center">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z"/></svg>
+        </span>
+        <span style="font-family:'Noto Nastaliq Urdu',var(--body);font-size:23px;color:var(--slate-3)">اردو</span>
+      </div>
+      <div style="font-size:34px;line-height:1.9;color:var(--ink);font-family:'Noto Nastaliq Urdu',var(--body)">
+        عائشہ خان ۸:۱۲ پر اسکول پہنچ گئیں۔</div>
+    </div>
+
+    <div class="kicker" id="s8kick" style="bottom:auto;top:96px">The very same message</div>
+    <div class="cap" id="s8cap" style="bottom:104px;left:0;width:1920px;text-align:center;max-width:none">
+      <span class="l"><span>One message. <em>Both languages.</em></span></span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ 10 · ROLES · 31–35 -->
+  <section class="scene" id="s10">
+    <div class="sky-ground"></div>
+    <div class="dots" style="left:1560px;top:70px;width:320px;height:320px"></div>
+    <div class="card s10c" style="left:140px;top:296px;width:380px;height:392px;padding:40px 36px;overflow:hidden">
+      <span style="position:absolute;left:0;right:0;top:0;height:8px;background:linear-gradient(90deg,#1140A6,#2C7BEF)"></span>
+      <div style="font-family:var(--display);font-weight:800;font-size:40px;letter-spacing:-.03em;color:var(--ink);margin-top:8px">Administrator</div>
+      <div style="font-family:var(--mono);font-size:19px;letter-spacing:.14em;color:var(--slate-3);margin-top:12px">EVERYTHING</div>
+      <div style="font-size:26px;line-height:1.5;color:var(--slate-2);margin-top:28px">Setup, staff, devices, every report</div>
+    </div>
+    <div class="card s10c" style="left:560px;top:296px;width:380px;height:392px;padding:40px 36px;overflow:hidden">
+      <span style="position:absolute;left:0;right:0;top:0;height:8px;background:linear-gradient(90deg,#6B2447,#8C3260)"></span>
+      <div style="font-family:var(--display);font-weight:800;font-size:40px;letter-spacing:-.03em;color:var(--ink);margin-top:8px">Office</div>
+      <div style="font-family:var(--mono);font-size:19px;letter-spacing:.14em;color:var(--slate-3);margin-top:12px">DAY TO DAY</div>
+      <div style="font-size:26px;line-height:1.5;color:var(--slate-2);margin-top:28px">Students, registers, leave, printing</div>
+    </div>
+    <div class="card s10c" style="left:980px;top:296px;width:380px;height:392px;padding:40px 36px;overflow:hidden">
+      <span style="position:absolute;left:0;right:0;top:0;height:8px;background:linear-gradient(90deg,#0E9A4E,#37C97A)"></span>
+      <div style="font-family:var(--display);font-weight:800;font-size:40px;letter-spacing:-.03em;color:var(--ink);margin-top:8px">Teacher</div>
+      <div style="font-family:var(--mono);font-size:19px;letter-spacing:.14em;color:var(--slate-3);margin-top:12px">OWN SECTIONS</div>
+      <div style="font-size:26px;line-height:1.5;color:var(--slate-2);margin-top:28px">Their classes, their timetable</div>
+    </div>
+    <div class="card s10c" style="left:1400px;top:296px;width:380px;height:392px;padding:40px 36px;overflow:hidden">
+      <span style="position:absolute;left:0;right:0;top:0;height:8px;background:linear-gradient(90deg,#D68908,#FBBF3C)"></span>
+      <div style="font-family:var(--display);font-weight:800;font-size:40px;letter-spacing:-.03em;color:var(--ink);margin-top:8px">Parent</div>
+      <div style="font-family:var(--mono);font-size:19px;letter-spacing:.14em;color:var(--slate-3);margin-top:12px">OWN CHILDREN</div>
+      <div style="font-size:26px;line-height:1.5;color:var(--slate-2);margin-top:28px">Today, the full record, apply for leave</div>
+    </div>
+
+    <div class="kicker" id="s10kick" style="bottom:auto;top:96px">Who sees what</div>
+    <div class="cap" id="s10cap" style="bottom:104px;left:0;width:1920px;text-align:center;max-width:none">
+      <span class="l"><span>Four roles. <em>Each sees only theirs.</em></span></span>
+    </div>
+  </section>
+
+  <!-- ═════════════════════════════════════════════ 9 · CLOSE · 01:13–01:20 -->
+  <section class="scene" id="s9">
+    <div class="dark-ground"></div>
+    <div class="dots light" style="left:-60px;top:-60px;width:420px;height:420px"></div>
+    <div class="dots light" style="left:1580px;top:740px;width:400px;height:400px"></div>
+
+    <div id="s9lock" style="position:absolute;left:0;right:0;top:326px;text-align:center">
+      <svg id="s9mark" width="150" height="150" viewBox="0 0 48 48" style="margin:0 auto 40px">
+        <rect width="48" height="48" rx="13" fill="url(#g9)"/>
+        <defs><linearGradient id="g9" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#2C7BEF"/><stop offset="1" stop-color="#1140A6"/></linearGradient></defs>
+        <g stroke="#fff" stroke-width="3.2" stroke-linecap="round" fill="none">
+          <path d="M13 15.5h21M13 23h13.5M13 30.5h9"/></g>
+        <path id="s9tick" d="M27.5 30.5l4.2 4.2 8.3-9.4" stroke="#93C3FF" stroke-width="4.4"
+              stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <div id="s9name" style="font-family:var(--display);font-weight:800;font-size:104px;letter-spacing:-.045em;color:#fff">EduAttendance</div>
+      <div id="s9tag" style="font-family:var(--display);font-weight:700;font-size:40px;color:var(--brand-300);margin-top:22px;letter-spacing:-.02em">
+        Every child accounted for, every single day.</div>
+    </div>
+
+    <div id="s9foot" style="position:absolute;left:0;right:0;bottom:150px;display:flex;justify-content:center;gap:66px;
+         font-family:var(--mono);font-size:30px;color:var(--brand-200)">
+      <span>+92 313 3398883</span><span style="color:rgba(146,195,255,.4)">·</span>
+      <span>www.eduattendance.pk</span>
+    </div>
+  </section>
+
+</div>
+
+<div id="ui">
+  <button id="pp">▶</button>
+  <input id="scrub" type="range" min="0" max="42.2" step="0.033" value="0">
+  <span class="t" id="clock">0.0 / 80.0</span>
+</div>
+
+<script src="anim.js"></script>
+</body>
+</html>
