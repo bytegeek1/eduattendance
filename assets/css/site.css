@@ -317,6 +317,8 @@ section > .shell { position: relative; z-index: 1; }
   font-family: var(--display); font-weight: 600; font-size: .93rem; color: var(--ink-2);
   padding: .55rem .82rem; border-radius: 9px; transition: color .16s, background .16s;
   position: relative;
+  /* a nav item must never break across two lines - it wrecks the header height */
+  white-space: nowrap;
 }
 .nav a:hover { color: var(--brand-600); background: var(--sky-50); }
 .nav a.on { color: var(--brand-600); }
@@ -776,6 +778,87 @@ section > .shell { position: relative; z-index: 1; }
 .rv { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.2,.8,.3,1), transform .7s cubic-bezier(.2,.8,.3,1); }
 .rv.in { opacity: 1; transform: none; }
 
+/* ================================================================== TOUR */
+
+.tour-wrap { position: relative; max-width: 1080px; margin-inline: auto; }
+
+/* the frame around the player — a screen, not a flat rectangle */
+.tour-frame {
+  position: relative; border-radius: var(--r-xl); overflow: hidden;
+  background: var(--navy-900); aspect-ratio: 16 / 9;
+  box-shadow: 0 0 0 1px var(--line-2), 0 6px 14px rgba(10,35,82,.10),
+              0 50px 110px -44px rgba(10,35,82,.62);
+}
+.tour-frame video, .tour-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* poster + play button sit over the video until it is started */
+.tour-cover {
+  position: absolute; inset: 0; cursor: pointer; border: 0; padding: 0; width: 100%;
+  display: grid; place-items: center; background: none;
+  transition: opacity .35s ease, visibility .35s;
+}
+.tour-cover::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(6,23,53,.10), rgba(6,23,53,.55));
+}
+.tour-wrap.playing .tour-cover { opacity: 0; visibility: hidden; }
+
+.tour-play {
+  position: relative; z-index: 2; width: 108px; height: 108px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: linear-gradient(140deg, var(--brand-500), var(--brand-700));
+  box-shadow: 0 0 0 1px rgba(255,255,255,.28) inset, 0 22px 50px -16px rgba(6,23,53,.8);
+  transition: transform .22s cubic-bezier(.2,.8,.3,1);
+}
+.tour-cover:hover .tour-play { transform: scale(1.08); }
+.tour-play svg { width: 40px; height: 40px; fill: #fff; margin-left: 6px; }
+.tour-play::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(92,164,255,.55); animation: tourRing 2.8s infinite;
+}
+@keyframes tourRing { 70% { box-shadow: 0 0 0 26px rgba(92,164,255,0); } 100% { box-shadow: 0 0 0 0 rgba(92,164,255,0); } }
+
+.tour-label {
+  position: absolute; z-index: 2; left: 0; right: 0; bottom: 40px; text-align: center;
+  font-family: var(--display); font-weight: 700; font-size: 1.06rem; color: #fff;
+  text-shadow: 0 2px 14px rgba(6,23,53,.7);
+}
+.tour-label span {
+  font-family: var(--mono); font-size: .78rem; letter-spacing: .16em; text-transform: uppercase;
+  display: block; color: var(--brand-300); margin-top: .35rem; text-shadow: none;
+}
+
+/* the chips under the player */
+.tour-notes {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin-top: 1.75rem;
+}
+
+/* ============================================================== LIGHTBOX */
+.lb {
+  position: fixed; inset: 0; z-index: 90; display: grid; place-items: center;
+  padding: clamp(16px, 4vw, 48px);
+  background: rgba(4,14,32,.88); backdrop-filter: blur(8px);
+  opacity: 0; visibility: hidden; transition: opacity .28s ease, visibility .28s;
+}
+.lb.open { opacity: 1; visibility: visible; }
+.lb-inner {
+  width: min(100%, 1280px); border-radius: var(--r-xl); overflow: hidden;
+  background: #000; aspect-ratio: 16 / 9;
+  box-shadow: 0 0 0 1px rgba(146,195,255,.25), 0 60px 120px -40px rgba(0,0,0,.9);
+  transform: scale(.965); transition: transform .3s cubic-bezier(.2,.8,.3,1);
+}
+.lb.open .lb-inner { transform: scale(1); }
+.lb-inner video { width: 100%; height: 100%; display: block; }
+.lb-close {
+  position: absolute; top: clamp(14px, 3vw, 30px); right: clamp(14px, 3vw, 30px);
+  width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(255,255,255,.12); box-shadow: 0 0 0 1px rgba(255,255,255,.3);
+  transition: background .18s, transform .18s;
+}
+.lb-close:hover { background: rgba(255,255,255,.22); transform: rotate(90deg); }
+.lb-close svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2.2; stroke-linecap: round; }
+body.lb-open { overflow: hidden; }
+
 /* ================================================================ PRICING */
 
 /* the two-model switch — a pill with a sliding indicator behind the labels */
@@ -933,6 +1016,71 @@ section > .shell { position: relative; z-index: 1; }
   margin-top: 1.5rem; font-size: .85rem; color: var(--slate-3); text-align: center;
 }
 
+/* ==================================================================== BLOG */
+
+.post-head { padding-block: clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 3rem); background: linear-gradient(180deg, var(--sky-50), #fff); }
+.crumbs { font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; color: var(--slate-3); margin-bottom: 1.4rem; }
+.crumbs a { color: var(--brand-600); }
+.crumbs span { margin-inline: .45rem; }
+
+.post-meta { display: flex; flex-wrap: wrap; gap: .55rem 1.4rem; align-items: center; margin-top: 1.5rem; font-size: .89rem; color: var(--slate-2); }
+.post-meta .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--brand-400); }
+
+/* the reading column — measure matters more than anything else here */
+.prose { max-width: 74ch; margin-inline: auto; font-size: 1.09rem; line-height: 1.78; color: var(--slate); }
+.prose > * + * { margin-top: 1.35rem; }
+.prose h2 {
+  font-size: clamp(1.5rem, 2.4vw, 1.95rem); margin-top: 3.2rem; padding-top: 1.6rem;
+  border-top: 1px solid var(--line); letter-spacing: -.026em;
+}
+.prose h3 { font-size: 1.2rem; margin-top: 2.2rem; }
+.prose strong { color: var(--ink); font-weight: 650; }
+.prose a { color: var(--brand-600); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.prose a:hover { text-decoration-thickness: 2px; }
+.prose ul, .prose ol { display: grid; gap: .7rem; padding-left: 1.35rem; }
+.prose ul li { list-style: disc; }
+.prose ol li { list-style: decimal; }
+.prose li::marker { color: var(--brand-400); }
+.prose table { font-size: .96rem; box-shadow: var(--e1); border-radius: var(--r); overflow: hidden; }
+.prose th { background: var(--sky-100); text-align: left; font-family: var(--display); font-weight: 700; color: var(--ink); }
+.prose th, .prose td { padding: .82rem 1.1rem; border-bottom: 1px solid var(--line); }
+.prose tbody tr:last-child td { border-bottom: 0; }
+.prose blockquote {
+  border-left: 4px solid var(--brand-500); background: var(--sky-50);
+  padding: 1.15rem 1.5rem; border-radius: 0 var(--r) var(--r) 0;
+  font-size: 1.04rem; color: var(--ink-2);
+}
+.prose .lead { font-size: 1.22rem; line-height: 1.65; color: var(--ink-2); }
+
+/* a pulled-out box for the practical bits */
+.callout {
+  background: var(--white); border-radius: var(--r-lg); padding: 1.6rem 1.75rem;
+  box-shadow: var(--e2); margin-top: 2rem;
+}
+.callout h3 { margin: 0 0 .7rem; font-size: 1.05rem; }
+.callout p, .callout li { font-size: .97rem; }
+
+/* post cards on the index */
+.posts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+.post-card {
+  background: var(--white); border-radius: var(--r-lg); padding: 1.9rem;
+  box-shadow: var(--e2); display: flex; flex-direction: column;
+  transition: transform .22s cubic-bezier(.2,.8,.3,1), box-shadow .22s;
+}
+.post-card:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--brand-300), 0 32px 60px -26px rgba(22,87,214,.45); }
+.post-card h2 { font-size: 1.3rem; margin: .9rem 0 .6rem; }
+.post-card p { font-size: .95rem; color: var(--slate-2); }
+.post-card .tlink { margin-top: 1.3rem; }
+
+.post-cta {
+  margin-top: 3rem; border-radius: var(--r-xl); padding: clamp(1.9rem, 4vw, 2.75rem);
+  background: radial-gradient(110% 130% at 88% 8%, rgba(92,164,255,.30), transparent 58%),
+              linear-gradient(135deg, var(--navy-900), var(--brand-700) 92%);
+  color: var(--brand-200);
+}
+.post-cta h2 { color: #fff; margin: 0 0 .8rem; border: 0; padding: 0; font-size: clamp(1.4rem, 2.2vw, 1.8rem); }
+.post-cta p { color: var(--brand-200); }
+
 /* ============================================================== RESPONSIVE */
 @media (max-width: 1140px) {
   .flow { grid-template-columns: repeat(3, 1fr); gap: 1rem 0; }
@@ -998,6 +1146,13 @@ section > .shell { position: relative; z-index: 1; }
   .mock-split { grid-template-columns: 1fr; }
   .topbar-links { gap: 1rem; }
   .topbar .partner { display: none; }
+  /* the play affordance is proportionally huge on a phone */
+  .tour-play { width: 74px; height: 74px; }
+  .tour-play svg { width: 28px; height: 28px; }
+  /* at this size the label lands on top of the poster's own burnt-in caption,
+     and the play button says the same thing on its own */
+  .tour-label { display: none; }
+  .lb-close { width: 44px; height: 44px; }
   .cmp { overflow-x: auto; }
   .cmp table { min-width: 640px; }
   .foot-grid { grid-template-columns: 1fr; gap: 1.75rem; }
