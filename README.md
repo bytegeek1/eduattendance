@@ -23,18 +23,135 @@ Then visit <http://localhost:5599>.
 
 ## Before it goes live — replace the placeholders
 
-Contact details are **placeholders**. Search and replace across `index.html`:
+The phone number is live: **+92 313 3398883** (`0313 3398883`), used for both the
+`tel:` links and the WhatsApp links (`wa.me/923133398883`, including the floating
+button). Change it in one pass with:
+
+```bash
+sed -i 's/923133398883/92XXXXXXXXXX/g; s/+92 313 3398883/+92 XXX XXXXXXX/g' index.html
+```
+
+The email is live too: **info@eduattendance.pk**, in the top bar, the CTA panel
+and the footer.
+
+Still **placeholders** — search and replace across `index.html`:
 
 | Placeholder | Appears | Replace with |
 |---|---|---|
-| `+92 300 0000000` | top bar, CTA, footer | your phone number |
-| `923000000000` | WhatsApp links (`wa.me/`, float button) | same number, digits only, no `+` |
-| `hello@eduattendance.com` | top bar, CTA, footer | your email |
-| `www.eduattendance.com` | footer | your domain |
+| `www.eduattendance.pk` | footer | your domain, if it is not this |
 | `Pakistan` | footer | your street address |
 
-There is deliberately **no pricing table** — the FAQ answers "What does it cost?"
-by inviting a quote instead. Add a pricing section when the numbers are settled.
+The footer domain was set to `www.eduattendance.pk` to match the email. Change it
+if the website actually lives somewhere else.
+
+## The product tour video
+
+The 42-second explainer, with voiceover, is embedded on the home page in two
+places, both fed by the same file — `video/eduattendance-explainer.mp4`:
+
+- **`#tour` section** (between the trust strip and the stat band). Shows a poster
+  frame with a play button; clicking plays it inline.
+- **"See how it works"** in the hero opens the same film full-screen in a
+  lightbox. Closes on the × button, on a click outside, or with `Esc`.
+
+Neither preloads the video — a 3 MB download has no business being part of first
+paint, so `preload="metadata"` on the inline player and `preload="none"` on the
+lightbox one.
+
+Two things worth knowing if you touch this:
+
+- Native `controls` are switched **on only once playback starts**. Chrome paints
+  the native control bar above overlaying elements, so leaving `controls` on the
+  markup made the bar show through the poster.
+- Opening the lightbox pauses the inline player and drops its controls again, so
+  two copies of the film can never run at once.
+
+The poster is `assets/img/video-poster.jpg`, pulled from the 8.6-second mark. To
+regenerate it after re-rendering the video:
+
+```bash
+node -e "const{spawnSync}=require('child_process');spawnSync(require('./video/node_modules/ffmpeg-static'),['-y','-ss','8.6','-i','video/eduattendance-explainer.mp4','-frames:v','1','-q:v','3','assets/img/video-poster.jpg'],{stdio:'inherit'})"
+```
+
+Everything about building the film itself is in [`video/README.md`](video/README.md).
+
+## Pricing
+
+`#pricing` presents the two commercial models behind a switch, so a visitor
+self-selects before they see any number. **Every plan opens with one month free.**
+
+**We run it** (managed — hosted by us, support included). Three tiers, billed
+monthly after the free month:
+
+| Plan | Students | Price | Per student |
+|---|---|---|---|
+| Starter | up to 200 | Rs 5,000 / month | Rs 25 |
+| Growth *(featured)* | up to 400 | Rs 10,000 / month | Rs 25 |
+| Scale | 600 and above | Rs 20,000 / month | Rs 33 and falling |
+
+Above 600, or several campuses, routes to a custom quote via the bar under the
+tiers.
+
+**You run it** (self-managed licence). The price is still **"Request a quote"** —
+you have not set one. Edit `#pane-self` in `index.html` when you have.
+
+For context, the Pakistani market in 2026 runs roughly **Rs 15–50 per student per
+month**, with published entry plans from about Rs 1,500–3,000/month for small
+schools. At Rs 25 per student these tiers sit mid-market, which is a much easier
+sell than the Rs 50 they were at before.
+
+**Add-ons** sit below both models: SMS credits and WhatsApp API billed at cost by
+whichever provider the school chooses, and the mobile app free on every plan.
+
+## SEO
+
+The site is built to rank for Pakistani school buyers, not for generic
+"attendance software" traffic.
+
+**Keyword targets**, taken from what actually ranks rather than guessed:
+
+| Tier | Terms |
+|---|---|
+| Primary | school attendance software in Pakistan · biometric attendance system for schools in Pakistan · school management software Pakistan |
+| Secondary | ZKTeco attendance software · WhatsApp attendance alert to parents · student attendance software Pakistan · school attendance system price in Pakistan |
+| Long-tail | how much does school attendance software cost in Pakistan · fingerprint vs RFID for schools · biometric attendance price in PKR · Urdu parent portal |
+
+**What is implemented:**
+
+- Keyworded `<title>` (54 chars) and meta description (155 chars) on every page.
+- Canonical URLs, `hreflang="en-pk"`, `geo.region=PK`.
+- Open Graph and Twitter cards with the video poster as the share image.
+- **JSON-LD** on the home page: `Organization`, `SoftwareApplication` (with all
+  three price offers), `VideoObject` for the explainer, and `FAQPage` carrying
+  seven questions. The blog carries `BlogPosting`, `BreadcrumbList` and its own
+  `FAQPage`.
+- `robots.txt` and `sitemap.xml` at the root.
+- Hero copy carries the primary keyword in a sentence a human would actually
+  read — no stuffing.
+
+**Every FAQ answer in the schema is trimmed from the visible FAQ on the page.**
+Do not let those drift apart: Google penalises structured data that says things
+the page does not.
+
+**After changing prices, update three places** — the visible `.plan` cards, the
+`SoftwareApplication.offers` in the JSON-LD, and the cost answer in both the
+visible FAQ and the `FAQPage` schema.
+
+## Blog
+
+```
+blog/index.html                                        listing
+blog/biometric-attendance-system-schools-pakistan.html 1,615-word guide
+```
+
+The guide targets *"biometric attendance system for schools in Pakistan"* — the
+highest commercial-intent term in the set. It is written to be genuinely useful
+to a principal (fingerprint vs RFID by age group, how WhatsApp and SMS are
+actually billed, real PKR costs, seven questions to ask a vendor), because thin
+keyword pages do not hold rankings.
+
+To add a post: copy the guide, replace the `<article>`, and update the
+`BlogPosting` schema, the card on `blog/index.html`, and `sitemap.xml`.
 
 ## What the content is based on
 

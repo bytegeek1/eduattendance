@@ -1,0 +1,20 @@
+# Build tooling for the explainer video — 94 MB of Chromium and ffmpeg.
+# Reinstall with:  cd video && npm install
+video/node_modules/
+
+# Rendered frames. Regenerate with:  cd video && node render.js
+video/frames/
+video/render.log
+
+# Voiceover working folder (only needed while assembling clips)
+video/vo/
+
+# OS and editor noise
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*~
+.vscode/
+.idea/
