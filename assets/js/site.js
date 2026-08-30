@@ -192,6 +192,57 @@
     window.addEventListener('resize', moveIndicator);
   }
 
+  /* ------------------------------------------------ the product tour */
+  /* Two ways in: the poster on the page plays inline, and "See how it works"
+     in the hero opens the same film full-screen. Neither preloads the file —
+     a 3 MB download should not be part of first paint. */
+  var wrap = $('#tourWrap'), vid = $('#tourVideo'), cover = $('#tourCover');
+  if (wrap && vid && cover) {
+    cover.addEventListener('click', function () {
+      wrap.classList.add('playing');
+      vid.controls = true;      // added on play; Chrome paints the native bar
+      vid.play();               // above the poster overlay if set up front
+    });
+    vid.addEventListener('pause', function () {
+      /* bring the poster back once it finishes, so the section never sits on a
+         frozen last frame */
+      if (vid.currentTime >= vid.duration - 0.1) {
+        wrap.classList.remove('playing');
+        vid.controls = false;
+      }
+    });
+  }
+
+  var lb = $('#lb'), lbVid = $('#lbVideo'), lbClose = $('#lbClose');
+  if (lb && lbVid) {
+    var openLb = function () {
+      lb.classList.add('open');
+      document.body.classList.add('lb-open');
+      lbVid.currentTime = 0;
+      lbVid.play();
+    };
+    var closeLb = function () {
+      lb.classList.remove('open');
+      document.body.classList.remove('lb-open');
+      lbVid.pause();
+    };
+    $$('[data-play-tour]').forEach(function (b) { b.addEventListener('click', openLb); });
+    if (lbClose) lbClose.addEventListener('click', closeLb);
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lb.classList.contains('open')) closeLb();
+    });
+    /* pause the inline player if the overlay takes over, so two copies of the
+       same soundtrack can never run at once */
+    if (vid) lb.addEventListener('transitionend', function () {
+      if (lb.classList.contains('open')) {
+        vid.pause();
+        vid.controls = false;    // else the native bar bleeds through the poster
+        if (wrap) wrap.classList.remove('playing');
+      }
+    });
+  }
+
   /* --------------------------------------------------------- year stamp */
   $$('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();
