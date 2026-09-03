@@ -6,10 +6,24 @@ build step, no framework, no dependencies to install.
 
 ```
 index.html            the whole page
-assets/css/site.css   design system + every component
+privacy.html          privacy policy   (Google Play requires this URL)
+terms.html            terms of service
+delete-account.html   account-deletion instructions (Play requires this too)
+build-legal.py        rebuilds the three legal pages from the content inside it
+hide-pricing.py       the one-off that removed pricing from the site (kept for the record)
+assets/css/site.css   design system + every component (the "editorial pass" block at the end
+                      is what took the template look away — kickers, one-colour headings,
+                      hairlines instead of cards)
 assets/js/site.js     sticky header, mobile menu, accordion, chart animations
 .claude/launch.json   local preview server config
 ```
+
+Pricing is deliberately not on the site (decision of 3 Sep 2026): no section, no
+nav link, no figures in the meta or structured data. The price guide in blog/ is
+kept but unlisted. Quote per school instead.
+
+The legal pages: edit the text in `build-legal.py`, then
+`python build-legal.py && python build-inline.py`.
 
 ## Viewing it
 
