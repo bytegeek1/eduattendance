@@ -1271,6 +1271,115 @@ body.lb-open { overflow: hidden; }
     display: inline-block; padding-block: .42rem;
   }
 }
+
+/* ============================================================ EDITORIAL PASS
+   2026-09-03. The first build leaned on the vocabulary every template uses:
+   a pill badge over each heading, two-tone headings with a short rule under
+   them, every section centred, and every list boxed into identical rounded
+   cards with icon chips. This block takes that vocabulary away and replaces
+   it with an editorial one: a numbered mono kicker, one-colour headings set
+   left with the lede beside them, hairlines instead of cards, and no corner
+   dot matrices. Everything above still defines the components; this only
+   changes how they sit. */
+
+main { counter-reset: sec; }
+
+/* the kicker: a section number and a word, not a button-shaped pill */
+.badge {
+  background: none; color: var(--brand-600); padding: 0; border-radius: 0; box-shadow: none;
+  font-family: var(--mono); font-weight: 600; font-size: .74rem; letter-spacing: .18em;
+}
+.badge-ghost, .on-dark .badge-ghost { background: none; box-shadow: none; color: var(--brand-600); }
+.on-dark .badge, .on-dark .badge-ghost { color: var(--brand-300); }
+.sec-head .badge::before { counter-increment: sec; content: counter(sec, decimal-leading-zero) "  —  "; }
+
+/* the head: number + heading on the left, the lede beside it, both on one baseline */
+.sec-head {
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 1rem clamp(2rem, 5vw, 5rem);
+  align-items: end; text-align: left; margin-bottom: clamp(2.5rem, 4.5vw, 3.75rem);
+}
+.sec-head .badge { grid-column: 1; margin-bottom: 1rem; }
+.sec-head h2 { grid-column: 1; }
+.sec-head h2 + p, .sec-head p { grid-column: 2; margin: 0 0 .35rem; max-width: 44ch; }
+.sec-head.center { text-align: left; }
+.sec-head.center p { margin-inline: 0; }
+.rule-brand { display: none; }
+
+/* one colour for a heading; the hero keeps its single accent */
+.sec-head h2 .t-plum, .sec-head h2 .t-blue, .cta h2 .t-blue { color: inherit; }
+
+/* décor that every template ships with */
+.dotfield { display: none; }
+#tour .waves, .site-foot .waves { display: none; }
+
+/* workflow: a numbered rail on one hairline, not six floating cards */
+.flow { border-top: 1px solid var(--line-2); }
+.flow-step { padding: 1.6rem 1.4rem 0 0; }
+.flow-step + .flow-step { border-left: 1px solid var(--line); padding-left: 1.4rem; }
+.flow-card { background: none; box-shadow: none; border-radius: 0; padding: 0; text-align: left; }
+.flow-card:hover { transform: none; box-shadow: none; }
+.flow-card .num {
+  position: static; transform: none; display: block; margin-bottom: 1rem;
+  font-family: var(--mono); font-size: .78rem; font-weight: 600; letter-spacing: .16em; color: var(--brand-600);
+  background: none; padding: 0; box-shadow: none; border-radius: 0; width: auto; height: auto;
+}
+.flow-card .chip { margin: 0 0 .9rem; }
+.flow-arrow { display: none; }
+.flow-caps { background: none; box-shadow: none; border-radius: 0; padding: 1.4rem 0 0; margin-top: 2.5rem; border-top: 1px solid var(--line-2); }
+.flow-cap { align-items: flex-start; text-align: left; padding-inline: 0 1rem; }
+.flow-cap + .flow-cap { padding-left: 1rem; }
+
+/* modes: three columns on a rule, hairline-bordered rather than floating */
+.mode { box-shadow: 0 0 0 1px var(--line-2); border-radius: var(--r); }
+.mode:hover { transform: none; box-shadow: 0 0 0 1px var(--brand-300); }
+
+/* reports: a list, not a stack of cards */
+.rep-list { gap: 0; border-top: 1px solid var(--line-2); }
+.rep-item { background: none; box-shadow: none; border-radius: 0; border-bottom: 1px solid var(--line); padding-inline: 0; }
+.rep-item:hover { transform: none; box-shadow: none; }
+
+/* parent alerts: plain entries either side of the phone */
+.pa-col { gap: 0; }
+.pa-card { background: none; box-shadow: none; border-radius: 0; padding: 1.1rem 0; border-top: 1px solid var(--line); }
+.pa-col .pa-card:last-child { border-bottom: 1px solid var(--line); }
+.pa-card:hover { transform: none; box-shadow: none; }
+
+/* comparison: a table with a border, not a floating slab */
+.cmp { box-shadow: 0 0 0 1px var(--line-2); border-radius: var(--r); }
+
+/* questions: one column of hairline rows, a real "+" at the end */
+.faq { grid-template-columns: 1fr 1fr; gap: 0 clamp(2rem, 5vw, 5rem); }
+.q:nth-child(2) { border-top: 1px solid var(--line-2); }
+.q { background: none; box-shadow: none; border-radius: 0; border-bottom: 1px solid var(--line-2); }
+.q:first-child { border-top: 1px solid var(--line-2); }
+.q.open { box-shadow: none; }
+.q-btn { padding-inline: 0; font-size: 1.04rem; }
+.q-btn .pm { background: none; border-radius: 0; }
+.q.open .q-btn .pm { background: none; }
+.q.open .q-btn .pm svg { stroke: var(--brand-600); }
+.q-body p { padding-inline: 0; max-width: 66ch; }
+
+/* the demo band: flat navy, a brand rule down the left, no glow */
+.cta { background: var(--navy-900); box-shadow: none; border-radius: var(--r); border-left: 6px solid var(--brand-500); }
+.cta .badge { color: var(--brand-300); }
+
+/* footer: no gradient wordmark, no bars under the column titles */
+.foot-grid h5::after { display: none; }
+.foot-brand .n1 { background: none; -webkit-background-clip: initial; background-clip: initial; color: #fff; }
+
+@media (max-width: 860px) {
+  .faq { grid-template-columns: 1fr; }
+  .q:nth-child(2) { border-top: 0; }
+  .sec-head { grid-template-columns: 1fr; align-items: start; }
+  .sec-head h2 + p, .sec-head p { grid-column: 1; }
+  .flow-step + .flow-step { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); }
+  .flow-step { padding-block: 1.1rem; }
+  .flow-card { display: grid; grid-template-columns: 46px 1fr; column-gap: 1rem; align-items: start; }
+  .flow-card .num { grid-column: 1 / -1; margin-bottom: .55rem; }
+  .flow-card .chip { width: 46px; height: 46px; margin: 0; grid-row: 2 / 4; }
+  .flow-card .chip svg { width: 22px; height: 22px; }
+  .flow-card h4, .flow-card p { grid-column: 2; }
+}
 </style>
 <!-- /inline:css -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill-rule='evenodd' fill='%230F1B2E' d='M1 42 L17 6 L31 6 L47 42 L34.5 42 L24 18.5 L13.5 42 Z'/%3E%3Cpath d='M9.5 31 L17.5 39 L38 18' fill='none' stroke='%231B54B8' stroke-width='6.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
@@ -1400,7 +1509,6 @@ body.lb-open { overflow: hidden; }
       <a href="../index.html#tour">Watch tour</a>
       <a href="../index.html#how">How it works</a>
       <a href="../index.html#reports">Reports</a>
-      <a href="../index.html#pricing">Pricing</a>
       <a href="index.html" class="on">Blog</a>
       <a class="btn nav-cta" href="../index.html#contact">Book a demo
         <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -1593,7 +1701,7 @@ body.lb-open { overflow: hidden; }
             <svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
             Message us on WhatsApp
           </a>
-          <a class="btn btn-ghost" href="../index.html#pricing">See pricing</a>
+          <a class="btn btn-ghost" href="../index.html#contact">Book a demo</a>
         </div>
       </div>
 
@@ -1626,7 +1734,7 @@ body.lb-open { overflow: hidden; }
         <div class="brand foot-brand">
           <svg class="brand-mark" viewBox="0 0 48 48" role="img" aria-hidden="true">
         <path fill-rule="evenodd" fill="#FFFFFF" d="M1 42 L17 6 L31 6 L47 42 L34.5 42 L24 18.5 L13.5 42 Z"/>
-        <path d="M9.5 31 L17.5 39 L38 18" fill="none" stroke="#5E97DF" stroke-width="6.4"
+        <path d="M9.5 31 L17.5 39 L38 18" fill="none" stroke="#2E6FD4" stroke-width="6.4"
               stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
           <span class="brand-txt"><span class="n1">Edu<em>Attendance</em></span><span class="n2">School Attendance System</span></span>
@@ -1639,7 +1747,6 @@ body.lb-open { overflow: hidden; }
         <ul>
           <li><a href="../index.html#tour">Watch the tour</a></li>
           <li><a href="../index.html#reports">Reports</a></li>
-          <li><a href="../index.html#pricing">Pricing</a></li>
           <li><a href="../index.html#faq">FAQ</a></li>
         </ul>
       </div>
